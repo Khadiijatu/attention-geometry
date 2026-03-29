@@ -1,6 +1,6 @@
 # Modeling Human Attention Across Modalities, Content Features, and Algorithmic Exposure
 
-**Status:** Independent research project (ongoing). Manuscript in preparation.
+**Status:** Independent research project (ongoing)
 
 ---
 
@@ -128,6 +128,6 @@ Prediction models are used only as robustness checks, not as objectives.
 
 ## Author
 **Khadidiatou Cissé**  
-MSc Mathematics | Performance Engineer | Data & ML Research
+MSc Mathematics | Complex Systems | Data & ML Research
 
 Links: [GitHub](https://github.com/Khadiijatu) • [LinkedIn](https://www.linkedin.com/in/khadijatea/)
