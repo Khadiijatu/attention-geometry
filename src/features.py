@@ -5,22 +5,22 @@ Feature extraction pipeline for the attention-geometry project.
 
 Extracts four groups of content-side features from each video:
 
-    Group A — Audio
+    Group A - Audio
         Speech rate, pitch statistics, energy envelope, tempo,
         spectral centroid, zero-crossing rate, music presence indicator.
         Source: yt-dlp (audio stream only) + librosa.
 
-    Group B — Visual
+    Group B - Visual
         Thumbnail colour palette (dominant hues, saturation, brightness),
         colour variance, estimated visual complexity.
         Source: thumbnail URL from API + Pillow.
 
-    Group C — Text
+    Group C - Text
         Title and description sentiment (VADER), readability (textstat),
         lexical diversity, punctuation signals, length statistics.
         Source: title and description fields from API.
 
-    Group D — Structural
+    Group D - Structural
         Duration, estimated pacing label, engagement-per-second proxy.
         Source: derived from API fields.
 
@@ -36,7 +36,7 @@ yt-dlp downloads only the audio stream (m4a/webm), which is ~3-10 MB
 per video rather than the full video file. This keeps storage manageable.
 Librosa resamples to 22,050 Hz for all analyses.
 
-Author: Khadidiatou Cissé
+Author: K. Cissé
 Date:   April 2026
 """
 
@@ -56,7 +56,7 @@ log = logging.getLogger(__name__)
 
 
 # ═══════════════════════════════════════════════════════════════════════════════
-# GROUP A — AUDIO FEATURES
+# GROUP A - AUDIO FEATURES
 # ═══════════════════════════════════════════════════════════════════════════════
 
 def download_audio(video_id: str, out_dir: Path,
@@ -193,8 +193,8 @@ def extract_audio_features(audio_path: Path,
 
         # ── Tempo ─────────────────────────────────────────────────────────────
         onset_env  = librosa.onset.onset_strength(y=y, sr=sr)
-        tempo, _   = librosa.beat.beat_track(onset_envelope=onset_env, sr=sr)
-        tempo_bpm  = float(tempo)
+        tempo, _   = librosa.beat.beat_track(onset_envelope=onset_env, sr=sr) 
+        tempo_bpm  = float(np.squeeze(tempo))
 
         # ── Spectral features ─────────────────────────────────────────────────
         spec_cent  = librosa.feature.spectral_centroid(y=y, sr=sr)[0]
@@ -238,7 +238,7 @@ def extract_audio_features(audio_path: Path,
 
 
 # ═══════════════════════════════════════════════════════════════════════════════
-# GROUP B — VISUAL FEATURES (THUMBNAIL)
+# GROUP B - VISUAL FEATURES (THUMBNAIL)
 # ═══════════════════════════════════════════════════════════════════════════════
 
 def download_thumbnail(thumbnail_url: str, video_id: str,
@@ -391,7 +391,7 @@ def extract_visual_features(thumbnail_path: Path) -> dict:
 
 
 # ═══════════════════════════════════════════════════════════════════════════════
-# GROUP C — TEXT FEATURES
+# GROUP C - TEXT FEATURES
 # ═══════════════════════════════════════════════════════════════════════════════
 
 def extract_text_features(title: str, description: str) -> dict:
@@ -485,7 +485,7 @@ def extract_text_features(title: str, description: str) -> dict:
 
 
 # ═══════════════════════════════════════════════════════════════════════════════
-# GROUP D — STRUCTURAL FEATURES
+# GROUP D - STRUCTURAL FEATURES
 # ═══════════════════════════════════════════════════════════════════════════════
 
 def extract_structural_features(duration_seconds: float,
