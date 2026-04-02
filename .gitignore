@@ -1,17 +1,22 @@
 # Python
+.venv/
 __pycache__/
 *.pyc
-
-# Jupyter
+*.pyo
 .ipynb_checkpoints/
 
-# LaTeX
-*.aux
-*.log
-*.toc
-*.out
-*.lof
-*.lot
-*.fls
-*.fdb_latexmk
-*.synctex.gz
+# Data (too large for git)
+data/raw/
+data/processed/
+
+# Secrets
+.env
+*.key
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Build
+results/figures/*.png
+results/figures/*.pdf
