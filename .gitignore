@@ -8,6 +8,10 @@ __pycache__/
 # Data (too large for git)
 data/raw/
 data/processed/
+*.wav
+*.mp3
+*.jpg
+*.pkl
 
 # Secrets
 .env
@@ -20,3 +24,5 @@ Thumbs.db
 # Build
 results/figures/*.png
 results/figures/*.pdf
+
+
