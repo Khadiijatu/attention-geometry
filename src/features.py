@@ -90,10 +90,13 @@ def download_audio(video_id: str, out_dir: Path,
         "yt-dlp",
         "--extract-audio",
         "--audio-format", "wav",
-        "--audio-quality", "5",          # balance quality and speed
+        "--audio-quality", "5",
         "--no-playlist",
         "--quiet",
         "--no-warnings",
+        "--retries", "3",
+        "--fragment-retries", "3",
+        "--sleep-interval", "2",
         "--output", str(out_dir / f"{video_id}.%(ext)s"),
         url,
     ]
@@ -601,11 +604,16 @@ def extract_all_features(row: pd.Series,
         ]}
     features.update({f'v_{k}': v for k, v in vis_feats.items()})
 
-    # ── Group A: Audio (yt-dlp + librosa — slow, optional) ───────────────────
+    # ── Group A: Audio (yt-dlp + librosa / slow, optional) ───────────────────
     if download_audio_flag:
         audio_path = download_audio(video_id, audio_dir)
         if audio_path:
             aud_feats = extract_audio_features(audio_path)
+            # Delete immediately after extraction to save space
+            try:
+                audio_path.unlink()
+            except Exception:
+                pass
         else:
             aud_feats = {k: np.nan for k in [
                 'pitch_mean', 'pitch_std', 'energy_mean', 'energy_std',
@@ -613,7 +621,6 @@ def extract_all_features(row: pd.Series,
                 'zcr_mean', 'music_presence', 'silence_ratio',
             ]}
         features.update({f'a_{k}': v for k, v in aud_feats.items()})
-
     return features
 
 
