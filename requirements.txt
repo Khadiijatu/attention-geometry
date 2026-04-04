@@ -1,4 +1,4 @@
-numpy>=1.24
+numpy<2
 scipy>=1.11
 pandas>=2.0
 matplotlib>=3.7
@@ -38,3 +38,5 @@ google-auth-oauthlib>=1.1
 # Utilities
 tqdm>=4.66
 python-dotenv>=1.0
+
+ipykernel
