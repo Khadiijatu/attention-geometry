@@ -17,21 +17,16 @@ MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']],displayMath:[['$$','$$']]},sv
 <style>
 /* ═══ DESIGN TOKENS ══════════════════════════════════════════ */
 :root {
-  --ink:      #0d0f14;
-  --ink2:     #131620;
-  --ink3:     #191d28;
-  --surface:  #1e2332;
-  --rim:      #2a3045;
-  --amber:    #e8a832;
-  --amber2:   #c47f10;
-  --coral:    #e05c4a;
-  --teal:     #3ecfb8;
-  --teal2:    #27a090;
-  --violet:   #9b7fe8;
-  --cream:    #f0ead8;
-  --cream2:   #c8bfa8;
-  --muted:    #7a8099;
-  --dim:      #3a4060;
+  --bg:      #1b1e2a;  /* warm dark slate — not black */
+  --bg2:     #20243a;
+  --bg3:     #171a26;
+  --surface: #262d44;
+  --rim:     #2e3650;
+  --blue:    #5a8fc4;  /* single accent — calm academic blue */
+  --blue2:   #8ab2d8;  /* lighter blue for labels & headings */
+  --text:    #ccd0d8;  /* warm off-white */
+  --text2:   #8a95aa;  /* secondary text */
+  --dim:     #3a4462;
 
   --f-display: 'Playfair Display', Georgia, serif;
   --f-mono:    'DM Mono', 'Courier New', monospace;
@@ -40,30 +35,20 @@ MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']],displayMath:[['$$','$$']]},sv
 
 /* ═══ RESET ══════════════════════════════════════════════════ */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-html{scroll-behavior:smooth;font-size:17px;}
+html{scroll-behavior:smooth;font-size:16px;}
 body{
-  background:var(--ink);
-  color:var(--cream);
+  background:var(--bg);
+  color:var(--text);
   font-family:var(--f-body);
   font-weight:300;
   line-height:1.72;
   overflow-x:hidden;
 }
 
-/* ═══ NOISE TEXTURE OVERLAY ═══════════════════════════════════ */
-body::before{
-  content:'';
-  position:fixed;inset:0;
-  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-  pointer-events:none;
-  z-index:1000;
-  opacity:.6;
-}
-
 /* ═══ PROGRESS ═══════════════════════════════════════════════ */
 #prog{
   position:fixed;top:0;left:0;height:1.5px;
-  background:linear-gradient(90deg,var(--amber),var(--coral),var(--teal));
+  background:var(--blue);
   z-index:500;width:0;transition:width .08s linear;
 }
 
@@ -71,22 +56,22 @@ body::before{
 nav{
   position:fixed;top:0;left:0;right:0;z-index:200;
   display:flex;align-items:center;justify-content:space-between;
-  padding:16px clamp(20px,6vw,80px);
-  background:rgba(13,15,20,.82);
-  backdrop-filter:blur(16px) saturate(160%);
-  border-bottom:1px solid rgba(255,255,255,.04);
+  padding:14px clamp(20px,6vw,80px);
+  background:rgba(27,30,42,.9);
+  backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--rim);
 }
 .nav-brand{
-  font-family:var(--f-mono);font-size:.68rem;
-  color:var(--amber);letter-spacing:.22em;text-transform:uppercase;
+  font-family:var(--f-mono);font-size:.67rem;
+  color:var(--text2);letter-spacing:.18em;text-transform:uppercase;
 }
-.nav-links{display:flex;gap:28px;list-style:none;}
+.nav-links{display:flex;gap:26px;list-style:none;}
 .nav-links a{
-  font-family:var(--f-mono);font-size:.64rem;
-  color:var(--muted);letter-spacing:.09em;text-decoration:none;
+  font-family:var(--f-mono);font-size:.63rem;
+  color:var(--dim);letter-spacing:.09em;text-decoration:none;
   transition:color .2s;text-transform:uppercase;
 }
-.nav-links a:hover{color:var(--cream);}
+.nav-links a:hover{color:var(--text);}
 @media(max-width:720px){.nav-links{display:none;}}
 
 /* ═══ HERO ═══════════════════════════════════════════════════ */
@@ -101,271 +86,263 @@ nav{
 
 .hero-text{position:relative;z-index:2;}
 .eyebrow{
-  font-family:var(--f-mono);font-size:.68rem;
-  color:var(--amber);letter-spacing:.22em;text-transform:uppercase;
-  margin-bottom:1.4em;display:flex;align-items:center;gap:14px;
+  font-family:var(--f-mono);font-size:.65rem;
+  color:var(--blue2);letter-spacing:.2em;text-transform:uppercase;
+  margin-bottom:1.3em;display:flex;align-items:center;gap:12px;
 }
 .eyebrow::before{
-  content:'';display:block;width:32px;height:1px;
-  background:linear-gradient(90deg,var(--amber),transparent);
+  content:'';display:block;width:28px;height:1px;
+  background:var(--blue);
 }
 h1{
   font-family:var(--f-display);
-  font-size:clamp(2.8rem,6.5vw,5.5rem);
+  font-size:clamp(2.6rem,6vw,5rem);
   font-weight:900;line-height:1.0;
-  letter-spacing:-.025em;
-  margin-bottom:.6em;
+  letter-spacing:-.02em;
+  margin-bottom:.65em;
 }
 h1 em{
   font-style:italic;font-weight:400;
-  background:linear-gradient(135deg,var(--amber),var(--coral));
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-  background-clip:text;
+  color:var(--blue2);
+  -webkit-text-fill-color:var(--blue2);
 }
 .hero-desc{
-  font-size:1.05rem;color:var(--cream2);
-  max-width:46ch;margin-bottom:2.4em;line-height:1.75;
+  font-size:1rem;color:var(--text2);
+  max-width:44ch;margin-bottom:2.2em;line-height:1.78;
 }
-.hero-tags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:2.2em;}
+.hero-tags{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:2em;}
 .tag{
-  font-family:var(--f-mono);font-size:.62rem;letter-spacing:.1em;
-  padding:5px 11px;border:1px solid var(--dim);
-  color:var(--muted);border-radius:2px;text-transform:uppercase;
+  font-family:var(--f-mono);font-size:.6rem;letter-spacing:.09em;
+  padding:4px 10px;border:1px solid var(--dim);
+  color:var(--text2);border-radius:2px;text-transform:uppercase;
 }
-.tag.hot{border-color:var(--amber2);color:var(--amber);}
+.tag.hot{border-color:var(--blue);color:var(--blue);}
 .hero-meta{
-  font-family:var(--f-mono);font-size:.65rem;
-  color:var(--muted);line-height:2.1;
+  font-family:var(--f-mono);font-size:.63rem;
+  color:var(--text2);line-height:2.1;
 }
-.hero-meta strong{color:var(--cream2);font-weight:400;}
+.hero-meta strong{color:var(--text);font-weight:400;}
 
 /* Hero canvas */
 .hero-canvas-wrap{
   position:relative;
-  background:var(--ink2);
+  background:var(--bg3);
   border:1px solid var(--rim);
-  border-radius:6px;overflow:hidden;
-  aspect-ratio:1.05;max-width:560px;
+  border-radius:4px;overflow:hidden;
+  aspect-ratio:1.05;max-width:540px;
   justify-self:end;
 }
 @media(max-width:900px){.hero-canvas-wrap{max-width:100%;justify-self:stretch;}}
 .hero-canvas-wrap canvas{width:100%;height:100%;display:block;}
 .canvas-badge{
-  position:absolute;bottom:12px;left:14px;
-  font-family:var(--f-mono);font-size:.58rem;
-  color:var(--dim);letter-spacing:.1em;text-transform:uppercase;
+  position:absolute;bottom:10px;left:12px;
+  font-family:var(--f-mono);font-size:.56rem;
+  color:var(--dim);letter-spacing:.09em;text-transform:uppercase;
 }
-.canvas-badge span{color:var(--amber);margin-right:6px;}
+.canvas-badge span{color:var(--blue2);margin-right:5px;}
 
 /* Scroll hint */
 .scroll-hint{
-  position:absolute;bottom:28px;left:50%;transform:translateX(-50%);
-  font-family:var(--f-mono);font-size:.6rem;color:var(--dim);
+  position:absolute;bottom:24px;left:50%;transform:translateX(-50%);
+  font-family:var(--f-mono);font-size:.58rem;color:var(--dim);
   letter-spacing:.2em;text-transform:uppercase;
   animation:breathe 2.6s ease-in-out infinite;
 }
-@keyframes breathe{0%,100%{opacity:.25}50%{opacity:.85}}
+@keyframes breathe{0%,100%{opacity:.2}50%{opacity:.7}}
 
 /* ═══ SECTIONS ═══════════════════════════════════════════════ */
 .section{
-  padding:clamp(80px,13vh,160px) clamp(20px,7vw,100px);
-  border-bottom:1px solid rgba(255,255,255,.04);
+  padding:clamp(60px,10vh,120px) clamp(20px,7vw,100px);
+  border-bottom:1px solid var(--rim);
   position:relative;
 }
-.section:nth-child(even){background:var(--ink2);}
+.section:nth-child(even){background:var(--bg2);}
 .section--split{
   display:grid;grid-template-columns:1fr 1fr;
-  gap:clamp(40px,7vw,100px);align-items:start;
+  gap:clamp(36px,6vw,86px);align-items:start;
 }
 @media(max-width:900px){.section--split{grid-template-columns:1fr;}}
 
 .secnum{
-  font-family:var(--f-mono);font-size:.62rem;
-  color:var(--dim);letter-spacing:.22em;text-transform:uppercase;
-  margin-bottom:2em;
+  font-family:var(--f-mono);font-size:.6rem;
+  color:var(--dim);letter-spacing:.2em;text-transform:uppercase;
+  margin-bottom:1.6em;
 }
 h2{
   font-family:var(--f-display);font-weight:700;
-  font-size:clamp(1.7rem,3.5vw,2.8rem);
+  font-size:clamp(1.55rem,3.2vw,2.5rem);
   line-height:1.15;letter-spacing:-.01em;
+  margin-bottom:.5em;
+}
+h2 em{font-style:italic;font-weight:400;color:var(--blue2);}
+h3{
+  font-family:var(--f-mono);font-size:.67rem;
+  color:var(--blue2);letter-spacing:.16em;text-transform:uppercase;
+  margin-bottom:.75em;
+}
+p{margin-bottom:1em;max-width:62ch;color:var(--text2);}
+p strong{color:var(--text);font-weight:500;}
+
+/* ═══ BOXES — unified clean style ════════════════════════════ */
+/* All boxes share the same base: left rule, very subtle tint */
+.formula-box,
+.result-box,
+.open-box{
+  border-left:2px solid var(--blue);
+  padding:14px 18px;
+  background:rgba(90,143,196,.04);
+  margin:1.4em 0;border-radius:0 3px 3px 0;
+}
+.formula-box .lbl,
+.result-box .lbl,
+.open-box .lbl{
+  font-family:var(--f-mono);font-size:.6rem;
+  color:var(--blue2);letter-spacing:.14em;text-transform:uppercase;
   margin-bottom:.55em;
 }
-h2 em{font-style:italic;font-weight:400;color:var(--amber);}
-h3{
-  font-family:var(--f-mono);font-size:.7rem;
-  color:var(--teal);letter-spacing:.18em;text-transform:uppercase;
-  margin-bottom:.8em;
+/* Open/conjecture box: slightly different tint */
+.open-box{
+  border-left-color:var(--text2);
+  background:rgba(138,149,170,.04);
 }
-p{margin-bottom:1.1em;max-width:64ch;color:var(--cream2);}
-p strong{color:var(--cream);font-weight:500;}
+.open-box .lbl{color:var(--text2);}
 
-/* ═══ FORMULA BOXES ══════════════════════════════════════════ */
-.formula-box{
-  border-left:3px solid var(--amber);
-  padding:20px 24px;
-  background:rgba(232,168,50,.05);
-  margin:1.8em 0;border-radius:0 4px 4px 0;
-}
-.formula-box .lbl{
-  font-family:var(--f-mono);font-size:.63rem;
-  color:var(--amber);letter-spacing:.15em;text-transform:uppercase;
-  margin-bottom:.7em;
-}
-.result-box{
-  border-left:3px solid var(--teal);
-  padding:20px 24px;
-  background:rgba(62,207,184,.05);
-  margin:1.8em 0;border-radius:0 4px 4px 0;
-}
-.result-box .lbl{
-  font-family:var(--f-mono);font-size:.63rem;
-  color:var(--teal);letter-spacing:.15em;text-transform:uppercase;
-  margin-bottom:.7em;
-}
 .step-box{
-  border:1px solid var(--rim);padding:18px 22px;
-  background:var(--ink3);margin:.9em 0;border-radius:4px;
+  border:1px solid var(--rim);padding:14px 18px;
+  background:var(--bg3);margin:.8em 0;border-radius:3px;
 }
 .step-box .step-n{
-  font-family:var(--f-mono);font-size:.6rem;color:var(--coral);
-  letter-spacing:.15em;text-transform:uppercase;margin-bottom:.4em;
-}
-.open-box{
-  border:1px solid rgba(224,92,74,.35);
-  padding:20px 24px;background:rgba(224,92,74,.04);
-  margin:1.8em 0;border-radius:4px;
-}
-.open-box .lbl{
-  font-family:var(--f-mono);font-size:.63rem;
-  color:var(--coral);letter-spacing:.15em;text-transform:uppercase;
-  margin-bottom:.7em;
+  font-family:var(--f-mono);font-size:.58rem;color:var(--blue2);
+  letter-spacing:.14em;text-transform:uppercase;margin-bottom:.35em;
 }
 
 /* ═══ CANVAS WRAPPERS ════════════════════════════════════════ */
 .cv{
-  background:var(--ink3);border:1px solid var(--rim);
-  border-radius:5px;overflow:hidden;position:relative;
+  background:#131620;border:1px solid var(--rim);
+  border-radius:4px;overflow:hidden;position:relative;
 }
-.cv canvas{width:100%;display:block;}
+.cv canvas{width:100%;height:100%;display:block;}
 .cv-lbl{
-  position:absolute;bottom:10px;left:13px;
-  font-family:var(--f-mono);font-size:.58rem;
-  color:var(--dim);letter-spacing:.1em;text-transform:uppercase;
+  position:absolute;bottom:9px;left:12px;
+  font-family:var(--f-mono);font-size:.56rem;
+  color:var(--dim);letter-spacing:.09em;text-transform:uppercase;
 }
 .cv-cap{
-  margin-top:10px;font-family:var(--f-mono);
-  font-size:.65rem;color:var(--muted);line-height:1.6;
+  margin-top:9px;font-family:var(--f-mono);
+  font-size:.62rem;color:var(--text2);line-height:1.6;
 }
 
 /* ═══ CONTROLS ═══════════════════════════════════════════════ */
-.controls{display:flex;gap:9px;flex-wrap:wrap;margin-top:14px;}
+.controls{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;}
 .btn{
-  font-family:var(--f-mono);font-size:.65rem;
-  letter-spacing:.08em;padding:8px 15px;
+  font-family:var(--f-mono);font-size:.62rem;
+  letter-spacing:.07em;padding:7px 13px;
   border:1px solid var(--rim);background:transparent;
-  color:var(--muted);cursor:pointer;border-radius:2px;
-  transition:all .18s;text-transform:uppercase;
+  color:var(--text2);cursor:pointer;border-radius:2px;
+  transition:all .16s;text-transform:uppercase;
 }
 .btn:hover,.btn.act{
-  border-color:var(--amber);color:var(--amber);
-  background:rgba(232,168,50,.06);
+  border-color:var(--blue);color:var(--blue);
+  background:rgba(90,143,196,.07);
 }
 .btn.teal:hover{
-  border-color:var(--teal);color:var(--teal);
-  background:rgba(62,207,184,.06);
+  border-color:var(--blue2);color:var(--blue2);
+  background:rgba(138,178,216,.07);
 }
 .btn.red:hover{
-  border-color:var(--coral);color:var(--coral);
-  background:rgba(224,92,74,.06);
+  border-color:var(--text2);color:var(--text);
+  background:rgba(138,149,170,.08);
 }
 
 /* ═══ TABLE ══════════════════════════════════════════════════ */
 .data-table{
   width:100%;border-collapse:collapse;
-  font-family:var(--f-mono);font-size:.72rem;
-  margin:1.5em 0;
+  font-family:var(--f-mono);font-size:.69rem;
+  margin:1.3em 0;
 }
 .data-table th{
-  background:var(--surface);color:var(--cream2);
-  padding:10px 14px;text-align:left;
+  background:var(--surface);color:var(--text2);
+  padding:9px 13px;text-align:left;
   border-bottom:1px solid var(--rim);
   font-weight:400;letter-spacing:.06em;
 }
 .data-table td{
-  padding:9px 14px;border-bottom:1px solid rgba(255,255,255,.03);
-  color:var(--cream2);vertical-align:top;
+  padding:8px 13px;border-bottom:1px solid rgba(255,255,255,.03);
+  color:var(--text2);vertical-align:top;
 }
 .data-table tr:hover td{background:rgba(255,255,255,.02);}
-.data-table td:first-child{color:var(--amber);}
+.data-table td:first-child{color:var(--blue2);}
 
 /* ═══ PIPELINE STEPS ════════════════════════════════════════ */
-.pipeline{display:flex;flex-direction:column;gap:1px;margin:1.6em 0;}
+.pipeline{display:flex;flex-direction:column;gap:1px;margin:1.4em 0;}
 .pipe-step{
-  display:grid;grid-template-columns:44px 1fr;
-  align-items:start;gap:16px;
-  padding:16px 18px;background:var(--ink3);
+  display:grid;grid-template-columns:40px 1fr;
+  align-items:start;gap:14px;
+  padding:14px 16px;background:var(--bg3);
   border:1px solid var(--rim);border-radius:3px;
-  transition:background .2s;
+  transition:background .18s;
 }
 .pipe-step:hover{background:var(--surface);}
 .pipe-n{
-  font-family:var(--f-display);font-size:1.6rem;
-  font-weight:900;color:var(--amber);
+  font-family:var(--f-display);font-size:1.4rem;
+  font-weight:900;color:var(--blue);
   line-height:1;padding-top:2px;
-  opacity:.4;
+  opacity:.35;
 }
-.pipe-step:hover .pipe-n{opacity:.8;}
+.pipe-step:hover .pipe-n{opacity:.7;}
 .pipe-title{
-  font-family:var(--f-mono);font-size:.7rem;
-  color:var(--cream);letter-spacing:.05em;margin-bottom:.3em;
+  font-family:var(--f-mono);font-size:.67rem;
+  color:var(--text);letter-spacing:.04em;margin-bottom:.25em;
   text-transform:uppercase;
 }
-.pipe-desc{font-size:.85rem;color:var(--muted);line-height:1.55;margin:0;}
+.pipe-desc{font-size:.83rem;color:var(--text2);line-height:1.55;margin:0;}
 
 /* ═══ GRID ════════════════════════════════════════════════════ */
-.two-col{display:grid;grid-template-columns:1fr 1fr;gap:24px;}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
 @media(max-width:700px){.two-col{grid-template-columns:1fr;}}
-.three-col{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;}
+.three-col{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;}
 @media(max-width:800px){.three-col{grid-template-columns:1fr 1fr;}}
 @media(max-width:500px){.three-col{grid-template-columns:1fr;}}
 
-/* ═══ MODALITY CARDS ════════════════════════════════════════ */
+/* ═══ CATEGORY CARDS ════════════════════════════════════════ */
 .mod-card{
-  padding:18px;border:1px solid var(--rim);
-  background:var(--ink3);border-radius:4px;
-  transition:border-color .2s,background .2s;
+  padding:14px 16px;border:1px solid var(--rim);
+  background:var(--bg3);border-radius:3px;
+  transition:border-color .18s,background .18s;
 }
-.mod-card:hover{border-color:var(--dim);background:var(--surface);}
+.mod-card:hover{border-color:var(--blue);background:var(--surface);}
 .mod-icon{
-  font-size:1.6rem;margin-bottom:.6em;
-  display:block;
+  font-family:var(--f-mono);font-size:.6rem;
+  color:var(--dim);letter-spacing:.1em;
+  display:block;margin-bottom:.5em;
+  text-transform:uppercase;
 }
 .mod-name{
-  font-family:var(--f-mono);font-size:.65rem;
-  color:var(--teal);letter-spacing:.14em;text-transform:uppercase;
-  margin-bottom:.4em;
+  font-family:var(--f-mono);font-size:.63rem;
+  color:var(--blue2);letter-spacing:.12em;text-transform:uppercase;
+  margin-bottom:.35em;
 }
-.mod-desc{font-size:.83rem;color:var(--muted);line-height:1.5;margin:0;}
+.mod-desc{font-size:.81rem;color:var(--text2);line-height:1.5;margin:0;}
 
 /* ═══ REVEAL ═════════════════════════════════════════════════ */
 .reveal{
-  opacity:0;transform:translateY(28px);
-  transition:opacity .7s ease,transform .7s ease;
+  opacity:0;transform:translateY(22px);
+  transition:opacity .65s ease,transform .65s ease;
 }
 .reveal.vis{opacity:1;transform:none;}
-.reveal.from-left{transform:translateX(-28px);}
-.reveal.from-right{transform:translateX(28px);}
+.reveal.from-left{transform:translateX(-22px);}
+.reveal.from-right{transform:translateX(22px);}
 .reveal.from-left.vis,.reveal.from-right.vis{transform:none;}
 
 /* ═══ FOOTER ════════════════════════════════════════════════ */
 footer{
-  padding:40px clamp(20px,7vw,100px);
-  font-family:var(--f-mono);font-size:.63rem;color:var(--dim);
-  display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;
+  padding:32px clamp(20px,7vw,100px);
+  font-family:var(--f-mono);font-size:.61rem;color:var(--dim);
+  display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;
   border-top:1px solid var(--rim);
 }
-footer a{color:var(--muted);text-decoration:none;}
-footer a:hover{color:var(--amber);}
+footer a{color:var(--text2);text-decoration:none;}
+footer a:hover{color:var(--blue2);}
 </style>
 </head>
 <body>
@@ -420,7 +397,7 @@ footer a:hover{color:var(--amber);}
 <!-- ═══ §1 THE CENTRAL FORMULA ═══════════════════════════════ -->
 <section id="formula" class="section">
   <div class="secnum">§ 1 — The Central Formula</div>
-  <div class="section--split">
+  <div class="section--split" style="grid-template-columns:1.2fr 1fr;align-items:start;">
     <div class="reveal from-left">
       <h3>The Hidden Geometry</h3>
       <h2>Attention has <em>curvature</em></h2>
@@ -464,7 +441,7 @@ footer a:hover{color:var(--amber);}
     </div>
 
     <div class="reveal from-right">
-      <div class="cv" style="aspect-ratio:.9;">
+      <div class="cv" style="aspect-ratio:1.5;">
         <canvas id="curveCanvas"></canvas>
         <div class="cv-lbl">κ(t) — interactive curvature explorer</div>
       </div>
@@ -561,52 +538,52 @@ footer a:hover{color:var(--amber);}
     <h3 class="reveal">10 Categories — balanced, contrasted</h3>
     <div class="three-col" style="margin-top:1.4em;">
       <div class="mod-card reveal">
-        <span class="mod-icon">🔬</span>
+        <span class="mod-icon">sc.</span>
         <div class="mod-name">Science education</div>
         <p class="mod-desc">Slow pacing, dense information, monologue — baseline cognitive load</p>
       </div>
       <div class="mod-card reveal">
-        <span class="mod-icon">😂</span>
+        <span class="mod-icon">co.</span>
         <div class="mod-name">Comedy sketches</div>
         <p class="mod-desc">Fast cuts, high curvature peaks at punchlines — emotion spikes</p>
       </div>
       <div class="mod-card reveal">
-        <span class="mod-icon">🧘</span>
+        <span class="mod-icon">mw.</span>
         <div class="mod-name">Meditation / wellness</div>
         <p class="mod-desc">Slow, minimal, low curvature — sustained attention mode</p>
       </div>
       <div class="mod-card reveal">
-        <span class="mod-icon">💰</span>
+        <span class="mod-icon">fi.</span>
         <div class="mod-name">Finance / investing</div>
         <p class="mod-desc">Trust signals, authority tone, information density</p>
       </div>
       <div class="mod-card reveal">
-        <span class="mod-icon">🎮</span>
+        <span class="mod-icon">ga.</span>
         <div class="mod-name">Gaming</div>
         <p class="mod-desc">High motion, reactive commentary, community-specific rhythm</p>
       </div>
       <div class="mod-card reveal">
-        <span class="mod-icon">💄</span>
+        <span class="mod-icon">bf.</span>
         <div class="mod-name">Beauty / fashion</div>
         <p class="mod-desc">Visual richness, tutorial structure, aspirational tone</p>
       </div>
       <div class="mod-card reveal">
-        <span class="mod-icon">🍳</span>
+        <span class="mod-icon">ck.</span>
         <div class="mod-name">Cooking</div>
         <p class="mod-desc">Procedural structure, sensory richness, completion-driven</p>
       </div>
       <div class="mod-card reveal">
-        <span class="mod-icon">📖</span>
+        <span class="mod-icon">pv.</span>
         <div class="mod-name">Personal vlog</div>
         <p class="mod-desc">Conversational, narrative arc, parasocial engagement</p>
       </div>
       <div class="mod-card reveal">
-        <span class="mod-icon">🗳️</span>
+        <span class="mod-icon">pc.</span>
         <div class="mod-name">Political commentary</div>
         <p class="mod-desc">Controversy, strong sentiment, high comment curvature</p>
       </div>
       <div class="mod-card reveal">
-        <span class="mod-icon">∞</span>
+        <span class="mod-icon">mp.</span>
         <div class="mod-name">Mathematics / philosophy</div>
         <p class="mod-desc">Dense abstraction, niche audience, extreme loyalty</p>
       </div>
@@ -615,7 +592,7 @@ footer a:hover{color:var(--amber);}
 
   <div style="margin-top:2.5em;" class="reveal">
     <h3>Collection Pipeline</h3>
-    <div class="pipeline">
+    <div class="pipeline" style="display:grid;grid-template-columns:1fr 1fr;gap:1px;">
       <div class="pipe-step">
         <div class="pipe-n">1</div>
         <div>
@@ -658,7 +635,7 @@ footer a:hover{color:var(--amber);}
 <!-- ═══ §3 TOPOLOGICAL ANALYSIS ══════════════════════════════ -->
 <section id="topology" class="section">
   <div class="secnum">§ 3 — Topological Data Analysis</div>
-  <div class="section--split">
+  <div class="section--split" style="grid-template-columns:3fr 2fr;align-items:start;">
     <div class="reveal">
       <h3>Persistent Homology</h3>
       <h2>The <em>shape</em> of the engagement space</h2>
@@ -689,7 +666,23 @@ footer a:hover{color:var(--amber);}
         complex retention trajectories are cognitively activating —
         they keep the brain switching modes.
       </p>
-      <div class="result-box">
+    </div>
+
+    <div class="reveal">
+      <div class="cv" style="aspect-ratio:1.9;">
+        <canvas id="topoCanvas"></canvas>
+      </div>
+      <div class="controls">
+        <button class="btn act teal" onclick="setTopoMode('simple')">Simple decay</button>
+        <button class="btn teal" onclick="setTopoMode('complex')">Complex trajectory</button>
+        <button class="btn teal" onclick="setTopoMode('viral')">Viral shape</button>
+      </div>
+      <p class="cv-cap">
+        Each bar = a topological feature (local attention dip) and its persistence.<br/>
+        Long bars = significant · Short bars = noise.<br/>
+        Blue bars = $H_0$ (components) · Lighter = $H_1$ (loops)
+      </p>
+      <div class="result-box" style="margin-top:1.2em;">
         <div class="lbl">Mapper graph</div>
         <p style="margin:0;font-size:.9em;">
           The Mapper algorithm (kepler-mapper) projects the 800-video point
@@ -700,45 +693,13 @@ footer a:hover{color:var(--amber);}
         </p>
       </div>
     </div>
-
-    <div class="reveal">
-      <div class="cv" style="aspect-ratio:1;">
-        <canvas id="topoCanvas"></canvas>
-        <div class="cv-lbl">Simulated persistence barcodes</div>
-      </div>
-      <div class="controls">
-        <button class="btn act teal" onclick="setTopoMode('simple')">Simple decay</button>
-        <button class="btn teal" onclick="setTopoMode('complex')">Complex trajectory</button>
-        <button class="btn teal" onclick="setTopoMode('viral')">Viral shape</button>
-      </div>
-      <p class="cv-cap">
-        Each bar = a topological feature (local attention dip) and its persistence.<br/>
-        Long bars = significant features · Short bars = noise.<br/>
-        Amber bars = $H_0$ (components) · Teal bars = $H_1$ (loops in trajectory space)
-      </p>
-    </div>
   </div>
 </section>
 
 <!-- ═══ §4 SHEAF THEORY ══════════════════════════════════════ -->
 <section id="sheaf" class="section">
   <div class="secnum">§ 4 — Category Theory & Sheaf Coherence</div>
-  <div class="section--split">
-    <div class="reveal">
-      <div class="cv" style="aspect-ratio:1.1;">
-        <canvas id="sheafCanvas"></canvas>
-        <div class="cv-lbl">Modality sheaf — coherence visualisation</div>
-      </div>
-      <div class="controls">
-        <button class="btn act" onclick="setSheafMode('coherent')">Coherent content</button>
-        <button class="btn" onclick="setSheafMode('incoherent')">Incoherent content</button>
-      </div>
-      <p class="cv-cap">
-        Green arrows = coherent engagement (audio, visual, text agree).<br/>
-        Red = coherence defect (modalities give conflicting signals).<br/>
-        The $H^1$ obstruction measures total incoherence.
-      </p>
-    </div>
+  <div class="section--split" style="grid-template-columns:3fr 2fr;align-items:start;">
 
     <div class="reveal">
       <h3>Category-theoretic structure</h3>
@@ -773,12 +734,26 @@ footer a:hover{color:var(--amber);}
           potentially viral content.
         </p>
       </div>
-      <p>
-        This connects directly to recent work by Curry et al. (2025) on
-        stratified spaces in RL agent latent representations, and to the
-        author's preprint on Whitney stratifications of gradient flow closures.
-        The volume growth transform that detects strata in neural networks
-        applies here: engagement trajectories form a stratified space, and
+    </div>
+
+    <div class="reveal">
+      <div class="cv" style="aspect-ratio:1.1;">
+        <canvas id="sheafCanvas"></canvas>
+        <div class="cv-lbl">Modality sheaf — coherence visualisation</div>
+      </div>
+      <div class="controls">
+        <button class="btn act" onclick="setSheafMode('coherent')">Coherent</button>
+        <button class="btn" onclick="setSheafMode('incoherent')">Incoherent</button>
+      </div>
+      <p class="cv-cap">
+        Blue arrows = coherent engagement (modalities agree).<br/>
+        Muted = coherence defect (conflicting signals).<br/>
+        $H^1$ obstruction measures total incoherence.
+      </p>
+      <p class="cv-cap" style="margin-top:1em;">
+        This connects to recent work by Curry et al. (2025) on stratified spaces
+        in RL agent latent representations, and to the author's preprint on
+        Whitney stratifications. Engagement trajectories form a stratified space;
         the Morse indices govern the volume growth exponents.
       </p>
     </div>
@@ -791,132 +766,140 @@ footer a:hover{color:var(--amber);}
   <div class="reveal">
     <h3>Five layers of increasing mathematical depth</h3>
     <h2>Explanation first, <em>prediction second</em></h2>
-    <p>
-      The modelling sequence is designed to show what each mathematical
-      layer adds. Every model is compared against the previous one.
-    </p>
   </div>
 
-  <div style="margin-top:2em;" class="reveal">
-    <div class="pipeline">
-      <div class="pipe-step">
-        <div class="pipe-n">M1</div>
-        <div>
-          <div class="pipe-title">Baseline scalar model</div>
-          <p class="pipe-desc">Predict like-rate from duration + category. Linear regression. This is what everyone does. Establishes the floor.</p>
+  <div class="section--split" style="margin-top:2em;align-items:start;">
+    <div class="reveal">
+      <div class="pipeline">
+        <div class="pipe-step">
+          <div class="pipe-n">M1</div>
+          <div>
+            <div class="pipe-title">Baseline scalar model</div>
+            <p class="pipe-desc">Predict like-rate from duration + category. Linear regression. This is what everyone does. Establishes the floor.</p>
+          </div>
         </div>
-      </div>
-      <div class="pipe-step">
-        <div class="pipe-n">M2</div>
-        <div>
-          <div class="pipe-title">Full feature model</div>
-          <p class="pipe-desc">Add all extracted features: audio, visual, text, structural. LASSO for variable selection. Which features matter? This is the interpretability result — the feature importance story.</p>
+        <div class="pipe-step">
+          <div class="pipe-n">M2</div>
+          <div>
+            <div class="pipe-title">Full feature model</div>
+            <p class="pipe-desc">Add all extracted features: audio, visual, text, structural. LASSO for variable selection. Which features matter? This is the interpretability result — the feature importance story.</p>
+          </div>
         </div>
-      </div>
-      <div class="pipe-step">
-        <div class="pipe-n">M3</div>
-        <div>
-          <div class="pipe-title">Path signature model</div>
-          <p class="pipe-desc">Replace engagement scalars with path signature features (depth-4 truncation via iisignature). Does trajectory shape outperform scalar summaries? Hypothesis: yes, because $W$ captures what scalars miss.</p>
+        <div class="pipe-step">
+          <div class="pipe-n">M3</div>
+          <div>
+            <div class="pipe-title">Path signature model</div>
+            <p class="pipe-desc">Replace engagement scalars with path signature features (depth-4 truncation via iisignature). Does trajectory shape outperform scalar summaries? Hypothesis: yes, because $W$ captures what scalars miss.</p>
+          </div>
         </div>
-      </div>
-      <div class="pipe-step">
-        <div class="pipe-n">M4</div>
-        <div>
-          <div class="pipe-title">Topological model</div>
-          <p class="pipe-desc">Add persistence entropy $H_{pers}$ and Betti numbers from the retention curve barcode. Does topological complexity improve prediction beyond the path signature? This is the TDA contribution.</p>
+        <div class="pipe-step">
+          <div class="pipe-n">M4</div>
+          <div>
+            <div class="pipe-title">Topological model</div>
+            <p class="pipe-desc">Add persistence entropy $H_{pers}$ and Betti numbers from the retention curve barcode. Does topological complexity improve prediction beyond the path signature? This is the TDA contribution.</p>
+          </div>
         </div>
-      </div>
-      <div class="pipe-step">
-        <div class="pipe-n">M5</div>
-        <div>
-          <div class="pipe-title">Trajectory VAE (stretch goal)</div>
-          <p class="pipe-desc">Train a variational autoencoder on (content features → engagement trajectory) pairs. Sample from the latent space conditioned on content to generate predicted trajectories — not just scalar outputs. This is the deep learning contribution and produces the most visually compelling results.</p>
+        <div class="pipe-step">
+          <div class="pipe-n">M5</div>
+          <div>
+            <div class="pipe-title">Trajectory VAE (stretch goal)</div>
+            <p class="pipe-desc">Train a variational autoencoder on (content features → engagement trajectory) pairs. Sample from the latent space conditioned on content to generate predicted trajectories — not just scalar outputs.</p>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <div style="margin-top:3em;" class="reveal">
-    <div class="cv" style="aspect-ratio:2.2;max-width:900px;">
-      <canvas id="modelCanvas"></canvas>
-      <div class="cv-lbl">Model comparison — simulated R² by feature group</div>
+    <div class="reveal">
+      <div class="cv" style="aspect-ratio:1.6;">
+        <canvas id="modelCanvas"></canvas>
+        <div class="cv-lbl">Model comparison — simulated R² by feature group</div>
+      </div>
+      <div class="controls">
+        <button class="btn act" onclick="animModel()">Animate comparison</button>
+      </div>
+      <p class="cv-cap">
+        Expected finding: path signatures (M3) substantially outperform scalars (M2).<br/>
+        Topological features (M4) add a further lift, especially for comment prediction.
+      </p>
+      <p class="cv-cap" style="margin-top:1em;">
+        Each model is compared against the previous one.
+        Every layer is designed to show what the added mathematical structure contributes.
+      </p>
     </div>
-    <div class="controls">
-      <button class="btn act" onclick="animModel()">Animate comparison</button>
-    </div>
-    <p class="cv-cap">
-      Expected finding: path signatures (M3) substantially outperform scalars (M2).<br/>
-      Topological features (M4) add a further lift, especially for comment prediction.
-    </p>
   </div>
 </section>
 
 <!-- ═══ §6 ROADMAP ═══════════════════════════════════════════ -->
 <section id="roadmap" class="section">
   <div class="secnum">§ 6 — Research Roadmap</div>
-  <div class="reveal" style="max-width:820px;">
+  <div class="reveal">
     <h3>Timeline</h3>
     <h2>Six phases, <em>14 weeks</em></h2>
+  </div>
 
-    <div class="pipeline" style="margin-top:1.8em;">
-      <div class="pipe-step">
-        <div class="pipe-n">Ⅰ</div>
-        <div>
-          <div class="pipe-title">Data collection · weeks 1–3</div>
-          <p class="pipe-desc">YouTube API pipeline. 800 videos across 10 categories. Audio/visual/text feature extraction. Four-snapshot engagement trajectories.</p>
+  <div class="section--split" style="margin-top:1.8em;align-items:start;">
+    <div class="reveal">
+      <div class="pipeline" style="display:grid;grid-template-columns:1fr 1fr;gap:1px;">
+        <div class="pipe-step">
+          <div class="pipe-n">Ⅰ</div>
+          <div>
+            <div class="pipe-title">Data collection · wks 1–3</div>
+            <p class="pipe-desc">YouTube API pipeline. 800 videos across 10 categories. Audio/visual/text feature extraction. Four-snapshot engagement trajectories.</p>
+          </div>
         </div>
-      </div>
-      <div class="pipe-step">
-        <div class="pipe-n">Ⅱ</div>
-        <div>
-          <div class="pipe-title">Curvature analysis · weeks 3–5</div>
-          <p class="pipe-desc">Compute $\kappa(t)$ and $W$ for all videos. Test the hypothesis: does $W$ predict viral status? Identify content features associated with curvature peaks.</p>
+        <div class="pipe-step">
+          <div class="pipe-n">Ⅱ</div>
+          <div>
+            <div class="pipe-title">Curvature analysis · wks 3–5</div>
+            <p class="pipe-desc">Compute $\kappa(t)$ and $W$ for all videos. Test the hypothesis: does $W$ predict viral status? Identify content features associated with curvature peaks.</p>
+          </div>
         </div>
-      </div>
-      <div class="pipe-step">
-        <div class="pipe-n">Ⅲ</div>
-        <div>
-          <div class="pipe-title">Path signatures · weeks 5–6</div>
-          <p class="pipe-desc">iisignature depth-4 features. Compare M1–M3 on held-out test set. Interpretability analysis: which signature coordinates matter?</p>
+        <div class="pipe-step">
+          <div class="pipe-n">Ⅲ</div>
+          <div>
+            <div class="pipe-title">Path signatures · wks 5–6</div>
+            <p class="pipe-desc">iisignature depth-4 features. Compare M1–M3 on held-out test set. Interpretability analysis: which signature coordinates matter?</p>
+          </div>
         </div>
-      </div>
-      <div class="pipe-step">
-        <div class="pipe-n">Ⅳ</div>
-        <div>
-          <div class="pipe-title">Topological layer · weeks 6–8</div>
-          <p class="pipe-desc">ripser on retention curves. Mapper graph of full content space. Test $H_{pers}$ as predictor. Visualise the topology of each content category.</p>
+        <div class="pipe-step">
+          <div class="pipe-n">Ⅳ</div>
+          <div>
+            <div class="pipe-title">Topological layer · wks 6–8</div>
+            <p class="pipe-desc">ripser on retention curves. Mapper graph of full content space. Test $H_{pers}$ as predictor. Visualise the topology of each content category.</p>
+          </div>
         </div>
-      </div>
-      <div class="pipe-step">
-        <div class="pipe-n">Ⅴ</div>
-        <div>
-          <div class="pipe-title">Sheaf coherence · weekss 8–10</div>
-          <p class="pipe-desc">Build the modality poset. Estimate synchronisation maps. Compute $\delta_X$ for each video. Test coherence-defect vs engagement-stability hypothesis.</p>
+        <div class="pipe-step">
+          <div class="pipe-n">Ⅴ</div>
+          <div>
+            <div class="pipe-title">Sheaf coherence · wks 8–10</div>
+            <p class="pipe-desc">Build the modality poset. Estimate synchronisation maps. Compute $\delta_X$ for each video. Test coherence-defect vs engagement-stability hypothesis.</p>
+          </div>
         </div>
-      </div>
-      <div class="pipe-step">
-        <div class="pipe-n">Ⅵ</div>
-        <div>
-          <div class="pipe-title">Trajectory VAE + paper · weeks 10–14</div>
-          <p class="pipe-desc">Train generative model. Write up findings. Target: workshop at NeurIPS/ICML (ML track) or journal in computational cognitive science.</p>
+        <div class="pipe-step">
+          <div class="pipe-n">Ⅵ</div>
+          <div>
+            <div class="pipe-title">VAE + paper · wks 10–14</div>
+            <p class="pipe-desc">Train generative model. Write up findings. Target: workshop at NeurIPS/ICML (ML track) or journal in computational cognitive science.</p>
+          </div>
         </div>
       </div>
     </div>
 
-    <div class="open-box" style="margin-top:2.2em;">
-      <div class="lbl">Open conjecture</div>
-      <p style="margin:0">
-        The engagement trajectory $\mathbf{e}(t)$ of a video, viewed as a point cloud
-        in $\mathbb{R}^3$ via Takens delay embedding, forms a
-        <strong>Whitney stratified space</strong> whose volume growth exponents
-        are controlled by the Morse indices of the retention function $r(t)$.
-        If this is correct, the author's preprint on stratified geometry of
-        Morse–Smale gradient flows (arXiv 2026) provides the theoretical
-        foundation for the entire framework — and the curvature formula $W$
-        is the gradient energy functional $\rho_{S_q}$ from Theorem D
-        applied to the attention dynamics.
-      </p>
+    <div class="reveal">
+      <div class="open-box">
+        <div class="lbl">Open conjecture</div>
+        <p style="margin:0">
+          The engagement trajectory $\mathbf{e}(t)$ of a video, viewed as a point cloud
+          in $\mathbb{R}^3$ via Takens delay embedding, forms a
+          <strong>Whitney stratified space</strong> whose volume growth exponents
+          are controlled by the Morse indices of the retention function $r(t)$.
+          If this is correct, the author's preprint on stratified geometry of
+          Morse–Smale gradient flows (arXiv 2026) provides the theoretical
+          foundation for the entire framework — and the curvature formula $W$
+          is the gradient energy functional $\rho_{S_q}$ from Theorem D
+          applied to the attention dynamics.
+        </p>
+      </div>
     </div>
   </div>
 </section>
